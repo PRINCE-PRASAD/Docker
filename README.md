@@ -33,3 +33,22 @@ or
 docker run -p6000:6379 -d redis
 docker run -p6001:6379 -d redis:4.0
 ```
+```
+docker run -d -p6001:6379 --name redids-older redis:4.0
+```
+``docker run -d -p6000:6379 --name redids-latest redis``
+```
+CONTAINER ID   IMAGE       COMMAND                  CREATED              STATUS              PORTS                    NAMES
+0daedfb19056   redis       "docker-entrypoint.s…"   9 seconds ago        Up 4 seconds        0.0.0.0:6000->6379/tcp   redids-latest
+0071fd17aedb   redis:4.0   "docker-entrypoint.s…"   About a minute ago   Up About a minute   0.0.0.0:6001->6379/tcp   redids-older
+```
+```
+docker logs redids-older
+
+```     
+docker exec -it 0071fd17aedb /bin/bash
+or 
+docker exec -it redids-older /bin/bash
+
+
+--------------------------------------------------------
