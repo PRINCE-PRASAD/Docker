@@ -18,9 +18,11 @@ docker run redis
 docker run -d redis
 docker ps
 docker ps -a
+docker rm redis
 docker start CONTAINER ID 
 docker stop CONTAINER ID 
 docker images
+docker rmi (image name)
 docker container ls -a
 docker image ls -a
 
@@ -52,3 +54,16 @@ docker exec -it redids-older /bin/bash
 
 
 --------------------------------------------------------
+
+docker pull mongo   
+docker pull mongo-express
+docker image
+docker network create mongo-network
+docker network ls
+docker run -p 27017:27017 -d -e MONGO_INITDB_ROOT_USERNAME=admin -e MONGO_INITDB_ROOT_PASSWORD=password --name mongodbprince --net mongo-network mongo
+u will get container id
+docker logs c73fec28879be69d043ab6cb16211351487ce3afac31c982ba026d494e2d64cf
+
+docker run -p 8081:8081 -d -e ME_CONFIG_MONGODB_ADMINUSERNAME=admin -e ME_CONFIG_MONGODB_ADMINPASSWORD=password --net mongo-network --name mongo-express -e ME_CONFIG_MONGODB_SERVER=mongodbprince mongo-express
+
+docker logs 097baeb045ecd25632a6924b15d052400d29be76d4f6a612081526f9a597b464
