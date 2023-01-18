@@ -37,7 +37,11 @@ docker rm node-app -f
 docker run -v pathtofolderonlocation:pathtofolderoncontainer -p 3000:3000 -d --name node-app node-app-image
 for example 
 docker run -v C:\Users\PRINCE\Desktop\GITHUB\Docker\nodeDocker\:/app -p 3000:3000 -d --name node-app node-app-image
+
 or for windows powershell-${pwd}, cmd-%cd%
+
+docker build -t node-app-image . (rebuild the image)
+
 docker run -v ${pwd}:/app -p 3000:3000 -d --name node-app node-app-image
 
 
