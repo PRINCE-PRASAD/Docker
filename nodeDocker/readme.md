@@ -44,8 +44,39 @@ docker build -t node-app-image . (rebuild the image)
 
 docker run -v ${pwd}:/app -p 3000:3000 -d --name node-app node-app-image
 
+if someone delete the nodw_mpdules localhost will not work then we have do the hack for it by adding one more volume at app
+
+docker rm node-app -f
+
+docker run -v ${pwd}:/app -v /app/node_modules -p 3000:3000 -d --name node-app node-app-image
+
+here is a security issue we can create the file via bash in terminal so we have to shoe it a only read only file
+
+docker rm node-app -f
+docker run -v ${pwd}:/app:ro -v /app/node_modules -p 3000:3000 -d --name node-app node-app-image
+
+```
+PS C:\Users\PRINCE\Desktop\GITHUB\Docker\nodeDocker> docker exec -it node-app bash
+root@00c901683fd4:/app# touch hello
+touch: cannot touch 'hello': Read-only file system
+```
+
+when u add enviroment veriable from file
+
+docker run -v ${pwd}:/app:ro -v /app/node_modules --env-file ./.env -p 3000:4000 -d --name node-app node-app-image
 
 
+Note -: when you create and delete the containers they preserve some data that not very use full for us so use this command for removing this
+
+docker volume rm (volumename)
+or
+docker volume prune    for all except the running container
+
+but if u want to remove the volume with the container at same time use this
+
+```
+docker rm node-app -fv
+```
 
 
 
