@@ -2,7 +2,8 @@ const express = require("express");
 const mongoose = require("mongoose");
 const { MONGO_USER, MONGO_PASSWORD, MONGO_IP, MONGO_PORT } = require("./config/config");
 
-const postRouter = require("./routes/postRoutes") 
+const postRouter = require("./routes/postRoutes")
+const userRouter = require("./routes/userRoutes")
 
 const app = express();
 
@@ -35,7 +36,8 @@ app.get("/",(req,res)=>{
 
 // localhost:3000/api/posts/
 app.use("/api/posts", postRouter)
-
+// http://localhost:3000/api/users/singup
+app.use("/api/users", userRouter)
 const port = process.env.PORT || 3000;
 
-app.listen(port, () => console.log(`listening on port ${port}`))
+app.listen(port, () => console.log(`listening on port ${port}`))  
