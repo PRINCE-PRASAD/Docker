@@ -7,14 +7,14 @@ const router = express.Router()
 
 router
     .route("/")
-    .get(postController.getAllPosts)
+    .get(protect,postController.getAllPosts)
     .post(protect, postController.createPost);
     //  here protect make sure user login before creating  the post
 router
     .route("/:id")
-    .get(postController.getOnePost)
-    .delete(postController.deletePost)
-    .patch(postController.updatePost);
+    .get(protect, postController.getOnePost)
+    .delete(protect, postController.deletePost)
+    .patch(protect, postController.updatePost);
 
 module.exports = router;
     
