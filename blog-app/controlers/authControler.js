@@ -10,6 +10,10 @@ exports.signUp = async (req, res) => {
         username,
         password: hashpassword,
     });
+
+    // this session token is provide when user is created
+    req.session.user = newUser;
+
     res.status(201).json({
         status: "succes",
         data: {
@@ -35,9 +39,10 @@ exports.login = async (req, res) => {
         })
     }
 
-    ifCorrect = await bcrypt.compare(password,user.password)
+    const isCorrect = await bcrypt.compare(password,user.password)
 
-    if(ifCorrect){
+    if(isCorrect){
+        req.session.user = user;
         res.status(200).json({
             staus: "succes"
         })
