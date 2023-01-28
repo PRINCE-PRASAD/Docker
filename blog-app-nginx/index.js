@@ -2,6 +2,7 @@ const express = require("express");
 const mongoose = require("mongoose");
 const session = require("express-session");
 const redis = require("redis")
+const cors = require("cors");
 let RedisStore = require("connect-redis")(session)
 
 
@@ -35,6 +36,14 @@ mongoose
 connectWithRetry();
 //  it is given because if node don't connect with mongooes it retry after few time automaticly
 
+app.enable(cors({}));
+// it added becuse it dont give error while taking frontend and backend
+
+app.enable("trust proxy");
+
+// it help in trus the headers that niginx server sending to ...
+
+
 app.use(session({
     store: new RedisStore({client: redisClient}),
     secret: SESSION_SECRET,
@@ -45,14 +54,16 @@ app.use(session({
         httpOnly: true,
         maxAge: 30000,
     }
-}))
+}));
+
 
 
 app.use(express.json());
 // it is given because expresss donot take the req.body directly basicaly it is a middleware
 
-app.get("/api/v1",(req,res)=>{
+app.get("/api/v1",(req, res)=>{
     res.send("<h2>HI BRO PRINCE I AM UP! <h2/>")
+    console.log("check for does nginx load balancing")
 })
 
 
